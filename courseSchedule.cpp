@@ -110,3 +110,39 @@ public:
         return true;
     }
 };
+/* topological sort with better runtime complexity */
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<set<int>> adj(numCourses);
+        vector<int> inDegree(numCourses);
+        for(int i = 0; i < prerequisites.size(); i++){
+            int v1 = prerequisites[i][0];
+            int v2 = prerequisites[i][1];
+            adj[v2].insert(v1);
+            inDegree[v1]++;
+        }
+        
+        queue<int> q;
+        int count = 0;
+        for(int i = 0; i < numCourses; i++){
+            if(inDegree[i] == 0){
+                q.push(i);
+            }
+        }
+        while(!q.empty()){
+            int top = q.front();
+            q.pop();   
+            count++;
+            for(auto it = adj[top].begin(); it != adj[top].end(); it++){
+                inDegree[*it]--;
+                if(inDegree[*it] == 0){
+                    q.push(*it);
+                }
+            }
+        }
+        
+        if(count == numCourses) return true;
+        return false;
+    }
+};
