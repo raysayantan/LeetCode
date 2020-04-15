@@ -81,3 +81,32 @@ public:
         return true;
     }
 };
+/* Below solution is based on topological sort in graph and working for all uses cases*/
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<set<int>> adj(numCourses);
+        vector<int> inDegree(numCourses);
+        for(int i = 0; i < prerequisites.size(); i++){
+            int v1 = prerequisites[i][0];
+            int v2 = prerequisites[i][1];
+            adj[v2].insert(v1);
+            inDegree[v1]++;
+        }
+        
+        for(int i = 0; i < numCourses; i++){
+            int j;
+            for(j = 0; j < numCourses && inDegree[j] != 0; j++);
+            
+            if(j == numCourses) return false;
+            
+            inDegree[j] = -1;
+            
+            for(auto it = adj[j].begin(); it != adj[j].end(); it++){
+                inDegree[*it]--;
+            }
+        }
+        
+        return true;
+    }
+};
