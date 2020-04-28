@@ -41,12 +41,8 @@ public:
     int networkDelayTime(vector<vector<int>>& times, int N, int K) {
         if(N == 1) return 0;
         vector<vector<vector<int>>> adj(N + 1);
-        vector<int> cost(N + 1);
+        vector<int> cost(N + 1, INT_MAX);
         int totalCost = 0;
-        for(int i = 1; i <= N; i++){
-            cost[i] = INT_MAX;
-            if(i == K) cost[i] = 0;
-        }
         
         for(int i = 0; i < times.size(); i++){
             int v1 = times[i][0];
@@ -55,6 +51,7 @@ public:
             adj[v1].push_back({v2,w});
         }
         q.push(K);
+        cost[K] = 0;
         bfs(adj, cost, K);
         
         for(int i = 1; i <= N; i++){
