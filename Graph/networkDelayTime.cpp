@@ -62,3 +62,53 @@ public:
         return totalCost;
     }
 };
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ using Priority Quehe Disktra Algorithm
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ class Solution {
+    class compareweight{
+        public:
+        bool operator()(vector<int> &v1, vector<int> &v2){
+            return v1[1] > v2[1];
+        }
+    };
+public:
+    int networkDelayTime(vector<vector<int>>& times, int N, int K) {
+        if(N == 1) return 0;
+        vector<vector<vector<int>>> adj(N + 1);
+        vector<int> cost(N + 1, INT_MAX);
+        priority_queue<vector<int>, vector<vector<int>>,compareweight> pq;
+        int totalCost = 0;
+        
+        for(int i = 0; i < times.size(); i++){
+            int v1 = times[i][0];
+            int v2 = times[i][1];
+            int w = times[i][2];   
+            adj[v1].push_back({v2,w});
+        }
+        pq.push({K,0});
+        cost[K] = 0;
+        while(!pq.empty()){
+            vector<int> top = pq.top();
+            pq.pop();
+            int v = top[0];
+            int w = top[1];
+            for(int i = 0; i < adj[v].size(); i++){
+                vector<int> node = adj[v][i];
+                int v1 = node[0];
+                int w1 = node[1];
+                if(cost[v1] > w1 + w){
+                    cost[v1] = w1 + w;
+                    pq.push({v1, cost[v1]});
+                }
+            }
+        }
+        
+        for(int i = 1; i <= N; i++){
+            if(cost[i] == INT_MAX) return -1;
+            if(cost[i] > totalCost) totalCost = cost[i];
+        }
+        
+        return totalCost;
+    }
+};
