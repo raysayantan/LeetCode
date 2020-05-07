@@ -33,36 +33,35 @@ For C programmers, try to solve it in-place in O(1) extra space.
 class Solution {
 public:
     string reverseWords(string s) {
-        bool need = false;
-        bool first = true;
         string res = "";
         string temp = "";
-        int len = s.length();
-        for(int i = len - 1; i >= 0; i--){
+        bool need = false;
+        bool first = true;
+        
+        for(int i = 0; i < s.length(); i++){
             if(s[i] != ' '){
                 need = true;
-                temp = s[i] + temp;
+                temp += s[i];
             } else {
                 if(need){
                     need = false;
                     if(!first){
-                        res += " ";
+                        res = temp + " " + res;
                     } else {
                         first = false;
+                        res += temp;
                     }
-                    res += temp;
-                    temp.clear();
                 }
+                temp = "";
             }
         }
-        
-        if(temp.length() >= 1){
-            if(first)
+        if(temp.length() > 0){
+            if(first){
                 res += temp;
-            else
-                res += (" " + temp);
-        }
-        
+            } else {
+                res = temp + " " + res;
+            }
+        }        
         return res;
     }
 };
