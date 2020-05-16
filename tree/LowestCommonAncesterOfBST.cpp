@@ -31,51 +31,27 @@ Accepted
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
 class Solution {
-   TreeNode* find(TreeNode* root, int val){
-       if(root == NULL) return NULL;
-       if(root->val == val) return root;
-       if(val < root->val){
-           return find(root->left, val);
-       } else {
-           return find(root->right, val);
-       }
-   }
-   TreeNode* lca(TreeNode *root, int p, int q/*, TreeNode **l, TreeNode **r*/){
-       TreeNode *l = NULL;
-       TreeNode *r = NULL;
-       if(root == NULL) return NULL;
-       if(p == root->val || q == root->val){
-           if(p == root->val){
-               l = root;
-               r = (q < root->val) ? find(root->left, q) : find(root->right, q);
-           } else {
-               r = root;
-               l = (p < root->val) ? find(root->left, p) : find(root->right, p);
-           }
-           
-       } else {
-            if(p < root->val && q < root->val){
-                l=r=lca(root->left, p, q);
-            } else if(p >= root->val && q >= root->val){
-                l=r=lca(root->right, p, q);
-            } else {
-                l = (p < root->val) ? find(root->left, p) : find(root->right, p);
-                r = (q < root->val) ? find(root->left, q) : find(root->right, q);
-            }
-       }
-       
-       if(l && r){
-           if(l == r) return l;
-           return root;
-       }
-       
-       if(l) return l;
-       return r;
-   } 
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        TreeNode *l = NULL, *r = NULL;
-        return lca(root, p->val, q->val);
+        if(root == NULL) return NULL;
+        while( root ){
+            if(root->val > p->val && root->val > q->val){
+                root = root->left;
+            } else if(root->val < p->val && root->val < q->val){
+                root = root->right;
+            } else break;
+        }
+        
+        return root;
     }
 };
