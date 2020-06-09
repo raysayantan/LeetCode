@@ -39,6 +39,8 @@ Explanation: The root node's value is 5 but its right child's value is 4.
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// Strategy is to keep track with the inorder predecessor and if the predecessor is greater than the successor then return false;
 class Solution {
     bool isBSTUtil(TreeNode* root, TreeNode** prev){
         if(root == NULL) return true;
