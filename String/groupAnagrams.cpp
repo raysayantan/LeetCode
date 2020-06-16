@@ -47,3 +47,29 @@ public:
         return result;
     }
 };
+//Another solution
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<string, vector<string>> container;
+        int len = strs.size();
+        for(int i = 0; i < len; i++){
+            string s = strs[i];
+            sort(s.begin(), s.end());
+            if(container.find(s) == container.end()){
+                vector<string> v;
+                v.push_back(strs[i]);
+                container.insert({s, v});
+            } else {
+                container[s].push_back(strs[i]);
+            }
+        }
+        
+        vector<vector<string>> result;
+        for(auto it = container.begin(); it != container.end(); it++){
+            result.push_back(it->second);
+        }
+        
+        return result;
+    }
+};
