@@ -26,7 +26,7 @@ class Solution {
 public:
     vector<int> topKFrequent(vector<int>& nums, int k) {
         //map to contain the frequency of each number occurances
-        map<int, int> container;
+        unordered_map<int, int> container;
         for(int i = 0; i < nums.size(); i++){
             if(container.find(nums[i]) != container.end()){
                 container[nums[i]]++;
