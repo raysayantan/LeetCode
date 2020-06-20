@@ -16,7 +16,13 @@ public:
         int start = 0;
         int end = 0;
         for(int i = 0; i < s.length(); i++){
+            //we can have palindrome in two scenarios
+            //1 - middle character is not maching but 
+            //rest of the chars of both side of middle 
+            //character are matching i.e. abbcbba
             int l1 = findLongestRange(s, i, i);
+            //2 - string exactly can be splitted in two part
+            //and both part are equal from middle i.e. abbccbbaa
             int l2 = findLongestRange(s, i, i+1);
             int l = max(l1, l2);
             
