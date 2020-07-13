@@ -31,21 +31,21 @@ Constraints:
 class Solution {
 public:
     int numIdenticalPairs(vector<int>& nums) {
-        vector<vector<int>> v(101);
+        vector<int> v(101,0);
         int len = nums.size();
         int total = 0;
         
-        //first store the index of occurances of each number in a vector of vector.
-        //in index 1, it will store the occurances of number 1's index
+        //first store the number of occurances of each number in a vector.
+        //in index 1, it will store the occurances of number 1's at index 1
         for(int i = 0; i < len; i++){
-            v[nums[i]].push_back(i);
+            v[nums[i]]++;
         }
         
-        //pick the one with size more than 1, i.e. that is occuring multiple times
+        //pick the one with value more than 1, i.e. that is occuring multiple times
         //then calculate the pairing, if num occuring n times then it will be n*(n-1)/2
         for(int i = 0; i < v.size(); i++){
-            if(v[i].size() > 1){
-                total += (v[i].size())*(v[i].size() - 1)/2;
+            if(v[i] > 1){
+                total += (v[i]*(v[i] - 1))/2;
             }
         }
         
