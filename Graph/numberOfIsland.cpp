@@ -22,7 +22,37 @@ Input: grid = [
 ]
 Output: 3
 */
-int counter = 0;
+class Solution {
+    int rows;
+    int cols;
+    void dfsHelper(vector<vector<char>>& grid, int row, int col){
+        if(grid[row][col] == '1'){
+            grid[row][col] = '2';
+            
+            //left
+            if(col > 0){
+                dfsHelper(grid, row, col -1);
+            }
+            
+            //top
+            if(row > 0){
+                dfsHelper(grid, row - 1, col);
+            }
+            
+            //right
+            if(col < cols - 1){
+                dfsHelper(grid, row, col + 1);
+            }
+            
+            //bottom
+            if(row < rows - 1){
+                dfsHelper(grid, row + 1, col);
+            }
+        }
+    }
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int counter = 0;
         rows = grid.size();
         if(rows == 0)
             return counter;
@@ -40,3 +70,5 @@ int counter = 0;
         }
         
         return counter;
+    }
+};
