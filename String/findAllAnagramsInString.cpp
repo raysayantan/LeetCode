@@ -37,7 +37,7 @@ public:
         vector<int> result;
         
         if(slen == 0 || slen < plen){
-            result;
+            return result;
         }
         
         int start = 0;
