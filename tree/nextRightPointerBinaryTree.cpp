@@ -80,33 +80,3 @@ public:
         return root;
     }
 };
-//****************************************************** Alternate Approach but recursive ****************************************
-class Solution {
-    void helper(Node* root, Node* parent){
-        if(root == NULL){
-            return;
-        }
-              
-        if(parent == NULL){
-            root->next = NULL;
-        } else {
-           if(parent->left == root){
-               root->next = parent->right;
-           } else {
-               if(parent->next){
-                   root->next = parent->next->left;
-               } else {
-                   root->next = NULL;
-               }
-           }
-        }
-        
-        helper(root->left, root);
-        helper(root->right, root);
-    }
-public:
-    Node* connect(Node* root) {
-        helper(root, NULL);
-        return root;
-    }
-};
