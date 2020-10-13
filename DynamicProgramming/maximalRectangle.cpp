@@ -41,6 +41,8 @@ public:
             return 0;
         
         int maxArea = 0;
+        //Traverse row by row and calculate the length of consecutive one left to the
+        //current cell, if current cell is 1.
         for(int r = 0; r < rows; r++){
             for(int c = 0; c < cols; c++){
                 if(c == 0){
@@ -56,6 +58,10 @@ public:
             }
         }
         
+        //Traverse the matrix and for non-zero cells, try to calculate the maximum area till that point
+        //and it is calculated based on the following formula: suppose we have two row i and j, 
+        //for column c we get min value ammong the rows between matrix[i][c] and matrix[j][c] and
+        //let say this is width. and are will be width(j - i + 1);
         for(int r = 0; r < rows; r++){
             for(int c = 0; c < cols; c++){
                 if(matrix[r][c] != '0'){
