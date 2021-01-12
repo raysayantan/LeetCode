@@ -81,3 +81,31 @@ public:
 // SparseVector v1(nums1);
 // SparseVector v2(nums2);
 // int ans = v1.dotProduct(v2);
+
+//Solution with Map
+class SparseVector {
+public:
+    unordered_map<int, int> mapper;
+    SparseVector(vector<int> &nums) {
+        for(int idx = 0; idx < nums.size(); idx++){
+            if(nums[idx] != 0){
+                mapper[idx] = nums[idx];
+            }
+        }
+    }
+    
+    // Return the dotProduct of two sparse vectors
+    int dotProduct(SparseVector& vec) {
+        int product = 0;
+        for(auto it = mapper.begin(); it != mapper.end(); it++){
+            int key = it->first;
+            if(vec.mapper.find(key) != vec.mapper.end()){
+                product += vec.mapper[key] * mapper[key];
+            }
+        }
+        
+        return product;
+    }
+};
+
+
